@@ -1,1 +1,2 @@
 # CVPR25_UniRestore
+# UniRestore bridges the gap between Perceptual Image Restoration (PIR) and Task-oriented Image Restoration (TIR) by leveraging a diffusion prior and adaptive feature fusion. While PIR enhances visual quality and TIR improves downstream task performance, UniRestore optimizes both aspects by integrating Complementary Feature Restoration Module (CFRM) and Task Feature Adapter (TFA), ensuring high-quality restorations that support downstream vision tasks effectively.
