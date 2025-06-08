@@ -1,0 +1,83 @@
+# Stage 1: train CFRM, Controller and SC-Tuner; focus on adapting the diffusion model to the image restoration task, specifically on restoring features from degraded inputs.
+# Training cmd: python src/main.py fit --config stage1.yaml
+# Validating cmd: python src/main.py validate --config stage1.yaml --trainer.logger null
+# effective_batch_size = batch_size * accumulate_grad_batches * num_gpus
+
+seed_everything: 42
+trainer: # ref: https://lightning.ai/docs/pytorch/stable/cli/lightning_cli.html#lightning-cli
+  # Hardware settings
+  accelerator: gpu
+  strategy: auto
+  devices: [0, 1, 2, 3, 4, 5, 6, 7]
+  precision: 32 # 32 (for V100), bf16-mixed (for 4090)
+  
+  # For debugging
+  # fast_dev_run: 8
+  # limit_train_batches: 0.4
+  # limit_val_batches: 20
+
+  # For iteration-based training
+  max_steps: 200000 
+  val_check_interval: 40000
+  check_val_every_n_epoch: null
+  log_every_n_steps: 25
+  accumulate_grad_batches: 2
+  num_sanity_val_steps: 2
+
+  logger: 
+    class_path: TensorBoardLogger
+    init_args:
+      save_dir: logs/unirestore/stage1
+      name: stage1
+      # version: tmp # comment out to use auto generated version name
+
+  callbacks: 
+    - class_path: lightning.pytorch.callbacks.LearningRateMonitor
+    - class_path: lightning.pytorch.callbacks.ModelCheckpoint
+      init_args:
+        save_top_k: 5
+        monitor: val_monitor
+        mode: max
+        filename: "epoch={epoch}-val={val_monitor:.4f}"
+        auto_insert_metric_name: false
+        save_on_train_epoch_end: false
+
+model:
+  class_path: core.engine_unifie.LitUniFIEIR 
+  init_args:
+    # save_image: True
+    model_kwargs:
+      frenc:  # CFRM
+        train: true
+        ckpt_path: null
+        type: CFRM
+      cnet:   # Controlnet & SC-Tuner
+        train: true
+        ckpt_path: null
+        type: scedit
+        num_inference_steps: 1 # can choose 1~4 diffusion steps
+      # tedit: # TFA, s1 does not need TFA, training code will use plain ae decoder
+      # ckpt_path: null
+    optimizer_kwargs: 
+      opt: adamw
+      base_lr: 1e-4
+      base_bsz: 64
+      weight_decay: 1e-2
+    lr_scheduler_kwargs:
+      sched: onecycle
+
+data:
+  class_path: data.DatasetEngine
+  init_args:
+    task: ir
+    train: 
+      type: div2kost
+      resolution: 512
+      batch_size: 3
+    val:
+      type: val
+      val_list: []
+      batch_size: 1
+    crp_mode: common
+    num_workers: 8
+    prefetch_factor: 4

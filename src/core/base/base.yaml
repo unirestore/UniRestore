@@ -1,0 +1,30 @@
+# python src/main.py validate --config src/core/base/base.yaml
+seed_everything: 42
+trainer:
+  accelerator: gpu
+  devices: [0, 1, 2, 3, 4, 5, 6, 7, 8]
+  precision: 32 # 32 (for V100), bf16-mixed (for 4090)
+
+  # fast_dev_run: 20
+  limit_train_batches: null
+  limit_val_batches: null
+
+model:
+  class_path: core.engine_unifie.LitUniFIEIR 
+  init_args:
+    eval_mode: all
+
+data:
+  class_path: data.DatasetEngine
+  init_args:
+    task: ir
+    train: 
+      type: div2kost
+      resolution: 512
+      batch_size: 3
+    val:
+      type: val
+      val_list: []
+      batch_size: 1
+    num_workers: 8
+    prefetch_factor: 4

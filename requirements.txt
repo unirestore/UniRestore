@@ -1,0 +1,29 @@
+# venv 
+# conda create -n unirestore python=3.11
+# conda activate unirestore
+# pip install torch==2.3.1 torchvision==0.18.1 --index-url https://download.pytorch.org/whl/cu121
+# pip install -r requirements.txt
+
+# pytorch 2.3.1+cu121
+# torch
+# torchvision
+# lightning==2.3.0, torchmetrics==1.4.0.post0
+lightning[pytorch-extra]
+torchmetrics[image]
+litdata
+# huggingface: diffusers==0.29.0 transformers==4.41.2 timm==1.0.3
+diffusers[torch]
+transformers
+timm
+# others
+opencv-python
+scikit-image
+einops
+ipdb
+pandas
+
+# global tool
+tensorboard
+nvitop 
+# face
+# mxnet
