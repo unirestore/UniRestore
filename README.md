@@ -6,7 +6,7 @@ Official repository for APGCC: Improving Point-based Crowd Counting and Localiza
 
 ## Updates
 - June 2025: ✨ Source code has been released!
-- June 2025: ✨ UniRestore was accepted into CVPR 2025 (Highlight)!
+- June 2025: ✨ UniRestore was accepted into CVPR 2025 Highlight!
 
 ## UniRestore
 **UniRestore** leverages diffusion prior to unify ![PIR](https://img.shields.io/badge/Perceptual_Image_Restoration-(PIR)-blue?style=flat-square)
