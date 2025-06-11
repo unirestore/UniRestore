@@ -63,7 +63,7 @@ Adapt restored features and diffusion priors for specific downstream tasks by tr
 ```
 python src/main.py fit --config ./configs/train_stage2.yaml
 ```
-<mark>💡 It is recommended to initialize Stage 2 with the provided pretrained checkpoint unirestore_s1.ckpt for better adaptation to each task.<mark>
+<mark>💡 It is recommended to start from Stage 2 with the provided pretrained checkpoint unirestore_s1.ckpt for better adaptation to each task.<mark>
 
 ### ➕ Add New Tasks Easily (recommend)
 To introduce a new task, simply define new task-specific prompts and fine-tune without modifying the main model or accessing previous training data.
