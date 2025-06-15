@@ -1,6 +1,6 @@
 # UniRestore: Unified Perceptual and Task-Oriented Image Restoration Model Using Diffusion Prior
 
-Official repository for APGCC: Improving Point-based Crowd Counting and Localization Based on Auxiliary Point Guidance.
+Official repository for UniRestore: Unified Perceptual and Task-Oriented Image Restoration Model Using Diffusion Prior
 
 [Project Page](https://unirestore.github.io) | [Paper](https://arxiv.org/abs/2501.13134) | [Video](https://www.youtube.com/watch?v=Jm1NkDDXN90) | [Code](https://github.com/unirestore/UniRestore)
 
