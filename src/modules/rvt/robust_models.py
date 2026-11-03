@@ -424,7 +424,7 @@ def rvt_tiny(pretrained, **kwargs):
     )
     model.default_cfg = _cfg()
     if pretrained:
-        state_dict = torch.load("rvt_ti.pth", map_location="cpu")["model"]
+        state_dict = torch.load("rvt_ti.pth", map_location="cpu", weights_only=True)["model"]
         model.load_state_dict(state_dict)
     return model
 
@@ -445,7 +445,7 @@ def rvt_tiny_plus(pretrained, **kwargs):
     )
     model.default_cfg = _cfg()
     if pretrained:
-        state_dict = torch.load("rvt_ti*.pth", map_location="cpu")["model"]
+        state_dict = torch.load("rvt_ti*.pth", map_location="cpu", weights_only=True)["model"]
         model.load_state_dict(state_dict)
     return model
 
@@ -464,7 +464,7 @@ def rvt_small(pretrained, **kwargs):
     )
     model.default_cfg = _cfg()
     if pretrained:
-        state_dict = torch.load("rvt_small.pth", map_location="cpu")["model"]
+        state_dict = torch.load("rvt_small.pth", map_location="cpu", weights_only=True)["model"]
         model.load_state_dict(state_dict)
     return model
 
@@ -485,7 +485,7 @@ def rvt_small_plus(pretrained, **kwargs):
     )
     model.default_cfg = _cfg()
     if pretrained:
-        state_dict = torch.load("rvt_small*.pth", map_location="cpu")["model"]
+        state_dict = torch.load("rvt_small*.pth", map_location="cpu", weights_only=True)["model"]
         model.load_state_dict(state_dict)
     return model
 
@@ -504,7 +504,7 @@ def rvt_base(pretrained, **kwargs):
     )
     model.default_cfg = _cfg()
     if pretrained:
-        state_dict = torch.load("rvt_base.pth", map_location="cpu")["model"]
+        state_dict = torch.load("rvt_base.pth", map_location="cpu", weights_only=True)["model"]
         model.load_state_dict(state_dict)
     return model
 
@@ -528,6 +528,7 @@ def rvt_base_plus(pretrained, **kwargs):
         state_dict = torch.load(
             "/work/r09921058/DiffUIE/DiffuieV3/src/models/rvt_base*.pth",
             map_location="cpu",
+            weights_only=True,
         )["model"]
 
         msg = model.load_state_dict(state_dict)
